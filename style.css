@@ -1,0 +1,269 @@
+/* ----- Your original CSS (with minor additions for caption) ----- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    padding: 30px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.title {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-buttons button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+.filter-buttons button:hover,
+.filter-buttons button.active {
+    background: #38bdf8;
+    transform: translateY(-3px);
+}
+
+.gallery {
+    display: grid;
+    gap: 25px;
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+    .title {
+        font-size: 2rem;
+    }
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    animation: fadeUp 0.8s ease;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: 0.5s;
+}
+
+.card:hover img {
+    transform: scale(1.12);
+    filter: brightness(0.8);
+}
+
+.card:hover {
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.35);
+}
+
+.card .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.card:hover .overlay {
+    opacity: 1;
+}
+
+.card .overlay span {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(4px);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.lightbox-img {
+    width: 85%;
+    max-width: 900px;
+    border-radius: 15px;
+    animation: zoom 0.3s ease;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    font-size: 45px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover {
+    transform: rotate(90deg);
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+.prev:hover,
+.next:hover {
+    background: #38bdf8;
+}
+
+.prev {
+    left: 30px;
+}
+.next {
+    right: 30px;
+}
+
+/* Lightbox caption (optional) */
+.lightbox-caption {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 12px 30px;
+    border-radius: 50px;
+    color: white;
+    text-align: center;
+    font-size: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.lightbox-caption span:first-child {
+    font-weight: 600;
+}
+.lightbox-caption span:last-child {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .lightbox-img {
+        width: 95%;
+    }
+    .prev,
+    .next {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
+    .prev {
+        left: 10px;
+    }
+    .next {
+        right: 10px;
+    }
+    .lightbox-caption {
+        font-size: 0.9rem;
+        padding: 8px 18px;
+        flex-wrap: wrap;
+        white-space: normal;
+        justify-content: center;
+        bottom: 20px;
+    }
+}
